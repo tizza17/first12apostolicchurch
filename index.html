@@ -14,7 +14,7 @@
         .iframe-container {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 100vh; /* Full height for larger screens */
         }
         iframe {
             width: 100%;
@@ -25,43 +25,54 @@
             position: fixed;
             bottom: 3px;
             right: 10px;
-            width: 150px;
-            height: auto;
-            z-index: 9999;
-            pointer-events: none;
+            width: 150px; /* Adjust as needed for your logo size */
+            height: auto; /* Keep height proportional */
+            z-index: 9999; /* High z-index to keep the logo on top */
+            pointer-events: none; /* Allows interaction with elements behind the logo */
         }
-        .note {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none; /* Initially hidden */
+
+        /* Media Queries for Tablet and Mobile Devices */
+        @media (max-width: 1024px) {
+            .iframe-container {
+                height: 85vh; /* Reduce height to fit on tablets */
+            }
+            .overlay-logo {
+                width: 120px; /* Smaller logo for tablet screens */
+                bottom: 10px;
+                right: 10px;
+            }
         }
-        .toggle-note {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            z-index: 10000;
+
+        @media (max-width: 768px) {
+            .iframe-container {
+                height: 80vh; /* Reduce height to fit mobile screens */
+                overflow-y: scroll; /* Allow scrolling if content overflows */
+            }
+            iframe {
+                height: 100%; /* Ensure iframe content fits within the container */
+            }
+            .overlay-logo {
+                width: 100px; /* Smaller logo for mobile screens */
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iframe-container {
+                height: 75vh; /* Further reduce for very small screens */
+                overflow-y: scroll; /* Enable scrolling for small screens */
+            }
+            .overlay-logo {
+                width: 80px; /* Smaller logo for very small screens */
+                bottom: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="toggle-note" onclick="toggleNotes()">Show/Hide Notes</button>
     <div class="iframe-container">
-        <div class="note" id="note">
-            <h4>Report Notes</h4>
-            <p>These notes provide guidance on how to interact with the financial report. Click filters to customize the data view.</p>
-        </div>
         <iframe src="https://lookerstudio.google.com/embed/reporting/cf88351d-f09f-42c3-aebd-edb10c8c21d7/page/p_crti6khqmd" 
                 frameborder="0" 
                 style="border:0" 
@@ -69,17 +80,29 @@
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
     </div>
-    <img src="https://drive.google.com/uc?export=view&id=1-TN62aeW-XqswO0ed0ZMBZDLmK2S_A2F" alt="Custom Logo" class="overlay-logo">
+    <img id="customLogo" src="https://drive.google.com/uc?export=view&id=1-TN62aeW-XqswO0ed0ZMBZDLmK2S_A2F" alt="Custom Logo" class="overlay-logo">
 
     <script>
-        function toggleNotes() {
-            var note = document.getElementById("note");
-            if (note.style.display === "none" || note.style.display === "") {
-                note.style.display = "block";
-            } else {
-                note.style.display = "none";
-            }
+        // JavaScript for dynamically adjusting iframe height to fit window height
+        function resizeIframe() {
+            const iframeContainer = document.querySelector('.iframe-container');
+            iframeContainer.style.height = window.innerHeight + 'px';
         }
+
+        // Ensure iframe resizes on window load and resize
+        window.addEventListener('resize', resizeIframe);
+        window.addEventListener('load', resizeIframe);
+
+        // JavaScript to force the logo to be displayed in front
+        function forceLogoOnTop() {
+            const logo = document.getElementById('customLogo');
+            logo.style.zIndex = 99999;  // Make sure the logo always has the highest z-index
+            logo.style.position = 'fixed';  // Fixed positioning to keep it on screen during scroll
+            logo.style.pointerEvents = 'none';  // Disable interaction with the logo to avoid blocking other elements
+        }
+
+        // Run function on load to ensure logo stays on top
+        window.addEventListener('load', forceLogoOnTop);
     </script>
 </body>
 </html>
