@@ -14,7 +14,7 @@
         .iframe-container {
             position: relative;
             width: 100%;
-            height: 100vh; /* Full height for desktop */
+            height: 100vh; /* Full height for larger screens */
         }
         iframe {
             width: 100%;
@@ -22,41 +22,51 @@
             border: none;
         }
         .overlay-logo {
-            position: fixed; /* Ensure logo stays in a fixed position */
+            position: fixed;
             bottom: 3px;
             right: 10px;
-            width: 190px; /* Adjust as needed for your logo size */
+            width: 150px; /* Adjust as needed for your logo size */
             height: auto; /* Keep height proportional */
             z-index: 9999; /* High z-index to keep the logo on top */
             pointer-events: none; /* Allows interaction with elements behind the logo */
         }
 
-        /* Media Queries for Mobile Devices */
+        /* Media Queries for Tablet and Mobile Devices */
+        @media (max-width: 1024px) {
+            .iframe-container {
+                height: 85vh; /* Reduce height to fit on tablets */
+            }
+            .overlay-logo {
+                width: 120px; /* Smaller logo for tablet screens */
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
         @media (max-width: 768px) {
             .iframe-container {
                 height: 80vh; /* Reduce height to fit mobile screens */
+                overflow-y: scroll; /* Allow scrolling if content overflows */
             }
             iframe {
-                height: 80vh; /* Make sure the iframe fits within the screen */
+                height: 100%; /* Ensure iframe content fits within the container */
             }
             .overlay-logo {
-                width: 100px; /* Reduce logo size on smaller screens */
-                bottom: 5px; /* Adjust position */
-                right: 5px;
+                width: 100px; /* Smaller logo for mobile screens */
+                bottom: 10px;
+                right: 10px;
             }
         }
 
         @media (max-width: 480px) {
             .iframe-container {
-                height: 70vh; /* Further reduce for very small screens */
-            }
-            iframe {
-                height: 70vh;
+                height: 75vh; /* Further reduce for very small screens */
+                overflow-y: scroll; /* Enable scrolling for small screens */
             }
             .overlay-logo {
                 width: 80px; /* Smaller logo for very small screens */
-                bottom: 5px;
-                right: 5px;
+                bottom: 10px;
+                right: 10px;
             }
         }
     </style>
@@ -70,7 +80,29 @@
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
     </div>
-    <!-- Use the direct URL for the logo -->
-    <img src="https://drive.google.com/uc?export=view&id=1-TN62aeW-XqswO0ed0ZMBZDLmK2S_A2F" alt="Custom Logo" class="overlay-logo">
+    <img id="customLogo" src="https://drive.google.com/uc?export=view&id=1-TN62aeW-XqswO0ed0ZMBZDLmK2S_A2F" alt="Custom Logo" class="overlay-logo">
+
+    <script>
+        // JavaScript for dynamically adjusting iframe height to fit window height
+        function resizeIframe() {
+            const iframeContainer = document.querySelector('.iframe-container');
+            iframeContainer.style.height = window.innerHeight + 'px';
+        }
+
+        // Ensure iframe resizes on window load and resize
+        window.addEventListener('resize', resizeIframe);
+        window.addEventListener('load', resizeIframe);
+
+        // JavaScript to force the logo to be displayed in front
+        function forceLogoOnTop() {
+            const logo = document.getElementById('customLogo');
+            logo.style.zIndex = 99999;  // Make sure the logo always has the highest z-index
+            logo.style.position = 'fixed';  // Fixed positioning to keep it on screen during scroll
+            logo.style.pointerEvents = 'none';  // Disable interaction with the logo to avoid blocking other elements
+        }
+
+        // Run function on load to ensure logo stays on top
+        window.addEventListener('load', forceLogoOnTop);
+    </script>
 </body>
 </html>
