@@ -21,14 +21,13 @@
             height: 100%;
             border: none;
         }
-        .overlay {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 200px; /* Adjusted width to ensure coverage */
-            height: 40px;  /* Adjusted height to ensure coverage */
-            background-color: #ffffff; /* Adjust to match background color */
-            z-index: 10;  /* Ensures that the overlay is above the iframe */
+        .overlay-logo {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 120px; /* Adjust as needed for your logo size */
+            height: auto;
+            z-index: 1000; /* High z-index to ensure the logo is on top */
         }
     </style>
 </head>
@@ -40,7 +39,7 @@
                 allowfullscreen 
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
-        <div class="overlay"></div>
     </div>
+    <img src="logo.jpg" alt="Custom Logo" class="overlay-logo">
 </body>
 </html>
