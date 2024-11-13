@@ -22,13 +22,13 @@
             border: none;
         }
         .overlay-logo {
-            position: fixed; /* This ensures the logo stays in place */
+            position: fixed; /* Ensure logo stays in a fixed position */
             bottom: 3px;
             right: 10px;
             width: 190px; /* Adjust as needed for your logo size */
-            height: 30px;
-            z-index: 9999; /* This value is extremely high to ensure it's always on top */
-            pointer-events: none; /* Ensures the logo does not interfere with user interaction */
+            height: auto; /* Keep height proportional */
+            z-index: 9999; /* High z-index to keep the logo on top */
+            pointer-events: none; /* Allows interaction with elements behind the logo */
         }
     </style>
 </head>
@@ -41,6 +41,7 @@
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
     </div>
-    <img src="logo.jpg" alt="Custom Logo" class="overlay-logo">
+    <!-- Use the direct URL for the logo -->
+    <img src="https://drive.google.com/uc?export=view&id=1-TN62aeW-XqswO0ed0ZMBZDLmK2S_A2F" alt="Custom Logo" class="overlay-logo">
 </body>
 </html>
