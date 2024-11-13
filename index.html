@@ -22,12 +22,13 @@
             border: none;
         }
         .overlay-logo {
-            position: fixed;
+            position: fixed; /* This ensures the logo stays in place */
             bottom: 3px;
             right: 10px;
             width: 190px; /* Adjust as needed for your logo size */
             height: 30px;
-            z-index: 9999; /* High z-index to ensure it's always on top */
+            z-index: 9999; /* This value is extremely high to ensure it's always on top */
+            pointer-events: none; /* Ensures the logo does not interfere with user interaction */
         }
     </style>
 </head>
