@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>WESTERNCAPEFINANCEHUB</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
         }
         .iframe-container {
             position: relative;
@@ -25,9 +24,19 @@
             position: fixed;
             bottom: 10px;
             right: 10px;
-            width: 120px; /* Adjust as needed for your logo size */
+            width: 120px;
             height: auto;
-            z-index: 1000; /* High z-index to ensure the logo is on top */
+            z-index: 1000;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            .iframe-container {
+                height: calc(100vh - 50px); /* Adjust as needed to allow some space */
+            }
+            body, html {
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
