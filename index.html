@@ -22,15 +22,15 @@
         }
         .overlay-logo {
             position: fixed;
-            bottom: 10px;
+            bottom: 3px;
             right: 10px;
-            width: 120px;
+            width: 150px;
             height: auto;
-            z-index: 1000;
-            pointer-events: none; /* Prevent interaction */
+            z-index: 9999;
+            pointer-events: none;
         }
 
-        /* Mobile-specific adjustments */
+        /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .overlay-logo {
                 width: 100px; /* Reduce size for smaller screens */
