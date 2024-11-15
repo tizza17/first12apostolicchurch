@@ -20,44 +20,55 @@
             height: 100%;
             border: none;
         }
-        .overlay-logo {
-            position: fixed;
-            bottom: 3px !important;
-            right: 10px !important;
-            width: 180px !important;
-            height: auto !important;
-            z-index: 10000 !important; /* Increase z-index to ensure it's above other content */
-        }
         .overlay-link {
             position: fixed;
-            bottom: 3px !important;
+            bottom: 1px !important;
             right: 10px !important;
-            z-index: 10000 !important; /* Ensure the link is on top */
+            z-index: 10001 !important; /* Ensure the link is above everything, including Looker Studio watermark */
             pointer-events: auto; /* Allow clicking on the link */
+        }
+        .overlay-logo {
+            width: 180px !important;
+            height: auto !important;
+            border-radius: 15px; /* Add rounded corners to the logo */
+            z-index: 10001 !important; /* Ensure logo is in the absolute front */
+        }
+
+        .hover-text {
+            display: none;
+            position: absolute;
+            bottom: 40px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 10001; /* Higher than logo to be visible */
+        }
+
+        .overlay-link:hover .hover-text {
+            display: block;
         }
 
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .overlay-logo {
                 width: 100px !important; /* Reduce size for smaller screens */
-                right: 5px !important;
-                bottom: 5px !important;
             }
-            .overlay-link {
-                right: 5px !important;
-                bottom: 5px !important;
+            .hover-text {
+                font-size: 12px; /* Adjust font size for smaller screens */
+                bottom: 30px;
             }
         }
 
         @media (max-width: 480px) {
             .overlay-logo {
                 width: 80px !important; /* Further reduce size for very small screens */
-                right: 3px !important;
-                bottom: 3px !important;
             }
-            .overlay-link {
-                right: 3px !important;
-                bottom: 3px !important;
+            .hover-text {
+                font-size: 10px; /* Further adjust font size for very small screens */
+                bottom: 25px;
             }
         }
 
@@ -83,6 +94,7 @@
     </div>
     <a href="https://www.itholelomzansi.co.za/" target="_blank" class="overlay-link">
         <img src="logo.jpg" alt="Custom Logo" class="overlay-logo">
+        <div class="hover-text">https://www.itholelomzansi.co.za/</div>
     </a>
 </body>
 </html>
