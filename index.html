@@ -25,8 +25,15 @@
             bottom: 3px !important;
             right: 10px !important;
             width: 180px !important;
-            height: 20px !important;
-            z-index: 9999 !important;
+            height: auto !important;
+            z-index: 10000 !important; /* Increase z-index to ensure it's above other content */
+        }
+        .overlay-link {
+            position: fixed;
+            bottom: 3px !important;
+            right: 10px !important;
+            z-index: 10000 !important; /* Ensure the link is on top */
+            pointer-events: auto; /* Allow clicking on the link */
         }
 
         /* Responsive adjustments for smaller screens */
@@ -36,11 +43,19 @@
                 right: 5px !important;
                 bottom: 5px !important;
             }
+            .overlay-link {
+                right: 5px !important;
+                bottom: 5px !important;
+            }
         }
 
         @media (max-width: 480px) {
             .overlay-logo {
                 width: 80px !important; /* Further reduce size for very small screens */
+                right: 3px !important;
+                bottom: 3px !important;
+            }
+            .overlay-link {
                 right: 3px !important;
                 bottom: 3px !important;
             }
@@ -66,7 +81,7 @@
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
     </div>
-    <a href="https://www.itholelomzansi.co.za/" target="_blank">
+    <a href="https://www.itholelomzansi.co.za/" target="_blank" class="overlay-link">
         <img src="logo.jpg" alt="Custom Logo" class="overlay-logo">
     </a>
 </body>
