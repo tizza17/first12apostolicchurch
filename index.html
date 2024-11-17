@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WESTERNCAPEFINANCEHUB</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
         .iframe-container {
             position: relative;
@@ -22,9 +23,9 @@
         }
         .overlay-link {
             position: fixed;
-            bottom: 1px !important;
-            right: 10px !important;
-            z-index: 10001 !important; /* Ensure the link is above everything, including Looker Studio watermark */
+            bottom: 20px; /* Adjusted placement */
+            right: 20px; /* Adjusted placement */
+            z-index: 10001 !important; /* Ensure the link is above everything */
             pointer-events: auto; /* Allow clicking on the link */
         }
         .overlay-logo {
@@ -60,6 +61,9 @@
                 font-size: 12px; /* Adjust font size for smaller screens */
                 bottom: 30px;
             }
+            .iframe-container {
+                height: calc(100vh - 60px); /* Adjust height for mobile view */
+            }
         }
 
         @media (max-width: 480px) {
@@ -69,16 +73,6 @@
             .hover-text {
                 font-size: 10px; /* Further adjust font size for very small screens */
                 bottom: 25px;
-            }
-        }
-
-        /* Ensure iframe container height adjusts for mobile */
-        @media (max-width: 768px) {
-            .iframe-container {
-                height: calc(100vh - 50px); /* Adjust as needed to allow some space */
-            }
-            body, html {
-                overflow-y: auto;
             }
         }
     </style>
