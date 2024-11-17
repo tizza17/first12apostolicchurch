@@ -2,37 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>WESTERNCAPEFINANCEHUB</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow: hidden; /* Prevent unnecessary scrolling */
         }
+
         .iframe-container {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 100vh; /* Full viewport height to ensure no extra space */
+            max-width: 100%;
         }
+
         iframe {
             width: 100%;
             height: 100%;
             border: none;
+            display: block;
         }
+
         .overlay-link {
             position: fixed;
-            bottom: 20px; /* Adjusted placement */
-            right: 20px; /* Adjusted placement */
-            z-index: 10001 !important; /* Ensure the link is above everything */
+            bottom: 0; /* Set closer to 0 to make sure it stays at the very bottom */
+            right: 10px;
+            z-index: 10001; /* Ensure the link is above everything, including Looker Studio watermark */
             pointer-events: auto; /* Allow clicking on the link */
         }
+
         .overlay-logo {
-            width: 180px !important;
-            height: auto !important;
+            width: 200px; /* Default width for desktop */
+            height: auto;
             border-radius: 15px; /* Add rounded corners to the logo */
-            z-index: 10001 !important; /* Ensure logo is in the absolute front */
+            z-index: 10001; /* Ensure logo is in the absolute front */
         }
 
         .hover-text {
@@ -55,20 +61,17 @@
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .overlay-logo {
-                width: 100px !important; /* Reduce size for smaller screens */
+                width: 170px; /* Increase for better coverage on smaller screens */
             }
             .hover-text {
                 font-size: 12px; /* Adjust font size for smaller screens */
                 bottom: 30px;
             }
-            .iframe-container {
-                height: calc(100vh - 60px); /* Adjust height for mobile view */
-            }
         }
 
         @media (max-width: 480px) {
             .overlay-logo {
-                width: 80px !important; /* Further reduce size for very small screens */
+                width: 150px; /* Further increase for very small screens */
             }
             .hover-text {
                 font-size: 10px; /* Further adjust font size for very small screens */
@@ -78,18 +81,65 @@
     </style>
 </head>
 <body>
-    <div class="iframe-container">
-        <iframe src="https://lookerstudio.google.com/embed/reporting/cf88351d-f09f-42c3-aebd-edb10c8c21d7/page/qmr2D" 
-                frameborder="0" 
-                style="border:0" 
+    <div class="iframe-container" id="iframeContainer">
+        <iframe id="responsiveIframe"
+                src="https://lookerstudio.google.com/embed/reporting/cf88351d-f09f-42c3-aebd-edb10c8c21d7/page/qmr2D" 
                 allowfullscreen 
                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
     </div>
-    <a href="https://www.itholelomzansi.co.za/" target="_blank" class="overlay-link">
+    <a href="https://www.itholelomzansi.co.za/" target="_blank" class="overlay-link" id="overlayLink">
         <img src="logo.jpg" alt="Custom Logo" class="overlay-logo">
-        <div class="hover-text">https://www.itholelomzansi.co.za/</div>
+        <div class="hover-text" id="hoverText">https://www.itholelomzansi.co.za/</div>
     </a>
+
+    <script>
+        function adjustElements() {
+            const iframe = document.getElementById("responsiveIframe");
+            const container = document.getElementById("iframeContainer");
+            const overlayLink = document.getElementById("overlayLink");
+            const overlayLogo = overlayLink.querySelector('img');
+            const hoverText = document.getElementById("hoverText");
+
+            // Adjust iframe container height to match viewport
+            const viewportHeight = window.innerHeight;
+            container.style.height = `${viewportHeight}px`;
+            iframe.style.height = `${viewportHeight}px`;
+
+            // Adjust the overlay logo size and position dynamically based on viewport size
+            const viewportWidth = window.innerWidth;
+
+            if (viewportWidth < 768) {
+                // For tablets and smaller screens
+                overlayLogo.style.width = '170px';
+                overlayLink.style.bottom = '0px';
+            }
+
+            if (viewportWidth < 480) {
+                // For very small screens
+                overlayLogo.style.width = '150px';
+                overlayLink.style.bottom = '0px';
+            }
+        }
+
+        // Show hover text on mobile devices
+        function showHoverText() {
+            const hoverText = document.getElementById("hoverText");
+            hoverText.style.display = 'block';
+
+            // Hide after a few seconds to avoid permanent display
+            setTimeout(() => {
+                hoverText.style.display = 'none';
+            }, 3000); // Adjust the delay time as per requirement
+        }
+
+        // Adjust elements on load and window resize
+        window.addEventListener("load", adjustElements);
+        window.addEventListener("resize", adjustElements);
+
+        // Add touch/click event for mobile
+        const overlayLink = document.getElementById("overlayLink");
+        overlayLink.addEventListener("click", showHoverText);
+    </script>
 </body>
 </html>
-
